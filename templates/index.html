@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Multi-Agente | Unitec</title>
+    <title>Unitec Ecatepec | Control Multi-Agente</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="refresh" content="10">
 </head>
@@ -10,42 +10,48 @@
 
 <header>
     <div>
-        <h2 style="margin:0;">UNITEC</h2>
-        <small>Campus Ecatepec - Control Multi-Agente</small>
+        <h2 style="margin:0;">UNITEC ECATEPEC</h2>
+        <small>Sistemas Inteligentes - Panel de Control Individual</small>
     </div>
-    <div class="badge">SISTEMA MULTI-NODO ACTIVO</div>
+    <div class="badge">RED DE AGENTES ACTIVA</div>
 </header>
 
 <div class="dashboard-grid">
-    {% for nombre, datos in agentes.items() %}
+    {% for nombre_agente, datos in agentes.items() %}
     <div class="card">
-        <h3>Agente: {{ nombre }}</h3>
-        <p style="font-size: 0.8rem; color: var(--texto-gris);">Ultima conexion: {{ datos.hora }}</p>
+        <div style="border-bottom: 1px solid #333; margin-bottom: 15px; padding-bottom: 10px;">
+            <h3 style="margin:0; color:var(--naranja-unitec);">Agente: {{ nombre_agente }}</h3>
+            <small style="color:var(--success);">Ultima señal: {{ datos.hora }}</small>
+        </div>
         
         <div class="led-status">
             <div class="led-indicator">
                 <div class="circle {{ 'on' if datos.led1 == 1 else '' }}"></div>
-                <small>Sala</small>
+                <small>Led 1</small>
             </div>
             <div class="led-indicator">
                 <div class="circle {{ 'on' if datos.led2 == 1 else '' }}"></div>
-                <small>Cocina</small>
+                <small>Led 2</small>
             </div>
             <div class="led-indicator">
                 <div class="circle {{ 'on' if datos.led3 == 1 else '' }}"></div>
-                <small>Recamara</small>
+                <small>Led 3</small>
             </div>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 0.7rem; color: #555; text-align: center;">
+            ID Unico: {{ nombre_agente | upper }}
         </div>
     </div>
     {% else %}
-    <div class="card">
-        <p style="color:var(--texto-gris)">No hay agentes reportando actividad.</p>
+    <div class="card" style="grid-column: 1 / -1;">
+        <p style="text-align:center; color:var(--texto-gris);">Esperando a que los agentes se reporten desde el ESP32 C3...</p>
     </div>
     {% endfor %}
 </div>
 
-<footer style="text-align:center; margin-top:40px; color:var(--texto-gris); font-size:0.8rem;">
-    Unitec Ecatepec - Laboratorio de Sistemas Inteligentes
+<footer style="text-align:center; margin-top:50px; color:var(--texto-gris); font-size:0.8rem; border-top: 1px solid #222; padding-top: 20px;">
+    Unitec Ecatepec - Ingenieria en Sistemas
 </footer>
 
 </body>
