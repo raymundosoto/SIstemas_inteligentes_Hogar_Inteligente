@@ -11,7 +11,7 @@
 <header>
     <div>
         <h2 style="margin:0;">UNITEC</h2>
-        <small>Campus Ecatepec - Ingeniería de Redes</small>
+        <small>Campus Ecatepec - Sistemas Inteligentes</small>
     </div>
     <div class="badge">SISTEMA ACTIVO</div>
 </header>
@@ -19,7 +19,7 @@
 <div class="dashboard-grid">
     
     <div class="card">
-        <h3>🤖 Agentes Inteligentes</h3>
+        <h3> Agentes Inteligentes</h3>
         {% for nombre, hora in dispositivos.items() %}
         <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
             <span>{{ nombre }}</span>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="card">
-        <h3>🏠 Estado del Hogar</h3>
+        <h3>Estado del Hogar</h3>
         <div class="led-status">
             <div class="led-indicator">
                 <div class="circle {{ 'on' if focos.led1 == 1 else '' }}"></div>
