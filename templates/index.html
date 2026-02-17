@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unitec Ecatepec - Sistemas Inteligentes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Unitec Campus Ecatepec</h1>
+        <p>Sistema de Monitoreo de Agentes Inteligentes</p>
+    </header>
+
+    <div class="contenedor">
+        {% for nombre, hora in dispositivos.items() %}
+        <div class="tarjeta">
+            <h3>Dispositivo: {{ nombre }}</h3>
+            <p>Estado: <span class="online">EN LÍNEA</span></p>
+            <p>Visto por última vez: {{ hora }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer>© 2026 - Proyecto de Ingeniería en Sistemas Computacionales</footer>
+</body>
+</html>

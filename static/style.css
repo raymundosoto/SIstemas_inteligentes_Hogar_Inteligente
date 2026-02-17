@@ -1,0 +1,8 @@
+
+body { font-family: Arial; background-color: #f0f0f0; margin: 0; text-align: center; }
+header { background-color: #004b93; color: white; padding: 20px; border-bottom: 5px solid #f39200; }
+.contenedor { display: flex; justify-content: center; flex-wrap: wrap; padding: 20px; }
+.tarjeta { background: white; border-radius: 8px; padding: 20px; margin: 10px; width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+h2 { color: #004b93; }
+.online { color: green; font-weight: bold; }
+footer { margin-top: 50px; color: #888; font-size: 12px; }
