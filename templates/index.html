@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard IoT | Unitec</title>
+    <title>Dashboard Multi-Agente | Unitec</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="refresh" content="10">
 </head>
@@ -11,49 +11,42 @@
 <header>
     <div>
         <h2 style="margin:0;">UNITEC</h2>
-        <small>Campus Ecatepec - Sistemas Inteligentes</small>
+        <small>Campus Ecatepec - Control Multi-Agente</small>
     </div>
-    <div class="badge">SISTEMA ACTIVO</div>
+    <div class="badge">SISTEMA MULTI-NODO ACTIVO</div>
 </header>
 
 <div class="dashboard-grid">
-    
+    {% for nombre, datos in agentes.items() %}
     <div class="card">
-        <h3> Agentes Inteligentes</h3>
-        {% for nombre, hora in dispositivos.items() %}
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            <span>{{ nombre }}</span>
-            <span style="color:var(--success)">● {{ hora }}</span>
-        </div>
-        {% else %}
-        <p style="color:var(--texto-gris)">Esperando conexión de ESP32...</p>
-        {% endfor %}
-    </div>
-
-    <div class="card">
-        <h3>Estado del Hogar</h3>
+        <h3>Agente: {{ nombre }}</h3>
+        <p style="font-size: 0.8rem; color: var(--texto-gris);">Ultima conexion: {{ datos.hora }}</p>
+        
         <div class="led-status">
             <div class="led-indicator">
-                <div class="circle {{ 'on' if focos.led1 == 1 else '' }}"></div>
+                <div class="circle {{ 'on' if datos.led1 == 1 else '' }}"></div>
                 <small>Sala</small>
             </div>
             <div class="led-indicator">
-                <div class="circle {{ 'on' if focos.led2 == 1 else '' }}"></div>
+                <div class="circle {{ 'on' if datos.led2 == 1 else '' }}"></div>
                 <small>Cocina</small>
             </div>
             <div class="led-indicator">
-                <div class="circle {{ 'on' if focos.led3 == 1 else '' }}"></div>
-                <small>Recámara</small>
+                <div class="circle {{ 'on' if datos.led3 == 1 else '' }}"></div>
+                <small>Recamara</small>
             </div>
         </div>
-        <p style="text-align:center; font-size:0.8rem; margin-top:20px; color:var(--texto-gris)">
-            Sincronizado con: raymundoss.pythonanywhere.com
-        </p>
     </div>
-
+    {% else %}
+    <div class="card">
+        <p style="color:var(--texto-gris)">No hay agentes reportando actividad.</p>
+    </div>
+    {% endfor %}
 </div>
 
-
+<footer style="text-align:center; margin-top:40px; color:var(--texto-gris); font-size:0.8rem;">
+    Unitec Ecatepec - Laboratorio de Sistemas Inteligentes
+</footer>
 
 </body>
 </html>
