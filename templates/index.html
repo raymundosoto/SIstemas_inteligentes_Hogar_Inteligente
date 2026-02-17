@@ -1,25 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Unitec Ecatepec - Sistemas Inteligentes</title>
+    <meta charset="UTF-8">
+    <title>Dashboard IoT | Unitec</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta http-equiv="refresh" content="10">
 </head>
 <body>
-    <header>
-        <h1>Unitec Campus Ecatepec</h1>
-        <p>Sistema de Monitoreo de Agentes Inteligentes</p>
-    </header>
 
-    <div class="contenedor">
+<header>
+    <div>
+        <h2 style="margin:0;">UNITEC</h2>
+        <small>Campus Ecatepec - Ingeniería de Redes</small>
+    </div>
+    <div class="badge">SISTEMA ACTIVO</div>
+</header>
+
+<div class="dashboard-grid">
+    
+    <div class="card">
+        <h3>🤖 Agentes Inteligentes</h3>
         {% for nombre, hora in dispositivos.items() %}
-        <div class="tarjeta">
-            <h3>Dispositivo: {{ nombre }}</h3>
-            <p>Estado: <span class="online">EN LÍNEA</span></p>
-            <p>Visto por última vez: {{ hora }}</p>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span>{{ nombre }}</span>
+            <span style="color:var(--success)">● {{ hora }}</span>
         </div>
+        {% else %}
+        <p style="color:var(--texto-gris)">Esperando conexión de ESP32...</p>
         {% endfor %}
     </div>
 
-    <footer>© 2026 - Proyecto de Ingeniería en Sistemas Computacionales</footer>
+    <div class="card">
+        <h3>🏠 Estado del Hogar</h3>
+        <div class="led-status">
+            <div class="led-indicator">
+                <div class="circle {{ 'on' if focos.led1 == 1 else '' }}"></div>
+                <small>Sala</small>
+            </div>
+            <div class="led-indicator">
+                <div class="circle {{ 'on' if focos.led2 == 1 else '' }}"></div>
+                <small>Cocina</small>
+            </div>
+            <div class="led-indicator">
+                <div class="circle {{ 'on' if focos.led3 == 1 else '' }}"></div>
+                <small>Recámara</small>
+            </div>
+        </div>
+        <p style="text-align:center; font-size:0.8rem; margin-top:20px; color:var(--texto-gris)">
+            Sincronizado con: raymundoss.pythonanywhere.com
+        </p>
+    </div>
+
+</div>
+
+
+
 </body>
 </html>
