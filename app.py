@@ -63,6 +63,13 @@ def recibir_orden():
     
     return jsonify({"status": "error", "message": "Agente no encontrado"}), 404
 
+# NUEVA RUTA PARA BORRAR AGENTES
+@app.route('/borrar/<id_agente>')
+def borrar_agente(id_agente):
+    if id_agente in agentes:
+        agentes.pop(id_agente) # Elimina el agente del diccionario
+    return redirect(url_for('index')) # Redirige al dashboard actualizado
+
 if __name__ == '__main__':
     # Nota: En PythonAnywhere no se usa app.run(), 
     # se configura desde la pestaña Web.

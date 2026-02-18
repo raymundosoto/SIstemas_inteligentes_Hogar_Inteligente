@@ -5,6 +5,22 @@
     <title>Dashboard Smart Home | Unitec Ecatepec</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="refresh" content="10">
+    <style>
+        .btn-borrar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: 0.3s;
+        }
+        .btn-borrar:hover {
+            background: #cc0000;
+            box-shadow: 0 0 10px #ff4444;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,11 +37,13 @@
     <div class="card">
         <div style="border-bottom: 1px solid #333; margin-bottom: 15px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
             <h3 style="margin:0; color:var(--naranja-unitec);">Agente: {{ id_agente }}</h3>
-            <span style="font-size: 0.8rem; color: var(--success);">Sincronizado: {{ info.hora }}</span>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 0.8rem; color: var(--success);">Sincronizado: {{ info.hora }}</span>
+                <a href="{{ url_for('borrar_agente', id_agente=id_agente) }}" class="btn-borrar" onclick="return confirm('¿Eliminar este agente?')">ELIMINAR</a>
+            </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: start;">
-            
             <div>
                 <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--texto-gris); margin-bottom: 15px;">Variables Atmosféricas</h4>
                 <div style="line-height: 1.8;">
@@ -60,7 +78,7 @@
     </div>
     {% else %}
     <div class="card" style="grid-column: 1 / -1; text-align: center;">
-        <p style="color:var(--texto-gris);">Esperando conexión de agentes inteligentes desde Ecatepec...</p>
+        <p style="color:var(--texto-gris);">Esperando conexión de agentes inteligentes...</p>
     </div>
     {% endfor %}
 </div>
