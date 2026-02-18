@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Smart Home Unitec | Ecatepec</title>
+    <title>Dashboard Smart Home | Unitec Ecatepec</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="refresh" content="10">
 </head>
@@ -10,45 +10,64 @@
 
 <header>
     <div>
-        <h2 style="margin:0;">UNITEC Agente maestro</h2>
-        <small>Sistemas computacionales - Sistemas Inteligentes</small>
+        <h2 style="margin:0;">UNITEC AGENTE MAESTRO</h2>
+        <small>Sistemas Computacionales - Sistemas Inteligentes</small>
     </div>
     <div class="badge">MONITOREO CLIMÁTICO ACTIVO</div>
 </header>
 
 <div class="dashboard-grid">
-    {% for nombre, info in agentes.items() %}
+    {% for id_agente, info in agentes.items() %}
     <div class="card">
-        <h3>Variables Atmosféricas</h3>
-        <div style="font-size: 1.2rem; line-height: 2;">
-            <div>Temperatura: <span style="color:var(--naranja-unitec)">{{ info.temp }}°C</span></div>
-            <div>Humedad: <span style="color:var(--naranja-unitec)">{{ info.hum }}%</span></div>
-            <div>Viento: <span style="color:var(--naranja-unitec)">{{ info.viento }} km/h</span></div>
+        <div style="border-bottom: 1px solid #333; margin-bottom: 15px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin:0; color:var(--naranja-unitec);">Agente: {{ id_agente }}</h3>
+            <span style="font-size: 0.8rem; color: var(--success);">Sincronizado: {{ info.hora }}</span>
         </div>
-        <p style="font-size: 0.7rem; color: var(--texto-gris);">Sincronizado: {{ info.hora }}</p>
-    </div>
 
-    <div class="card">
-        <h3>Estado de Actuadores</h3>
-        <div class="led-status">
-            <div class="led-indicator">
-                <div class="circle {{ 'on' if info.act1 == 1 else '' }}"></div>
-                <small>Ventilador</small>
+        <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: start;">
+            
+            <div>
+                <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--texto-gris); margin-bottom: 15px;">Variables Atmosféricas</h4>
+                <div style="line-height: 1.8;">
+                    <div>Temperatura: <span style="color:var(--naranja-unitec); font-weight: bold;">{{ info.temp }}°C</span></div>
+                    <div>Humedad: <span style="color:var(--naranja-unitec); font-weight: bold;">{{ info.hum }}%</span></div>
+                    <div>Viento: <span style="color:var(--naranja-unitec); font-weight: bold;">{{ info.viento }} km/h</span></div>
+                </div>
             </div>
-            <div class="led-indicator">
-                <div class="circle {{ 'on' if info.act2 == 1 else '' }}"></div>
-                <small>Humidificador</small>
-            </div>
-            <div class="led-indicator">
-                <div class="circle {{ 'on' if info.act3 == 1 else '' }}"></div>
-                <small>Iluminación</small>
+
+            <div>
+                <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--texto-gris); margin-bottom: 15px;">Estado de Actuadores</h4>
+                <div class="led-status">
+                    <div class="led-indicator">
+                        <div class="circle {{ 'on' if info.act1 == 1 else '' }}"></div>
+                        <small>Ventilador</small>
+                    </div>
+                    <div class="led-indicator">
+                        <div class="circle {{ 'on' if info.act2 == 1 else '' }}"></div>
+                        <small>Humidificador</small>
+                    </div>
+                    <div class="led-indicator">
+                        <div class="circle {{ 'on' if info.act3 == 1 else '' }}"></div>
+                        <small>Iluminación</small>
+                    </div>
+                </div>
             </div>
         </div>
-        <div style="margin-top:15px; border-top: 1px solid #333; padding-top:10px; font-size:0.7rem;">
-            <strong>Reglas:</strong> Temp > 28°C (Vent) | Hum < 30% (Humid) | Viento > 20km/h (Luz)
+
+        <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #222; font-size: 0.7rem; color: var(--texto-gris);">
+            <strong>Reglas de Sistema:</strong> Temp > 28°C (Vent) | Hum < 30% (Humid) | Viento > 20km/h (Luz)
         </div>
+    </div>
+    {% else %}
+    <div class="card" style="grid-column: 1 / -1; text-align: center;">
+        <p style="color:var(--texto-gris);">Esperando conexión de agentes inteligentes desde Ecatepec...</p>
     </div>
     {% endfor %}
 </div>
+
+<footer style="text-align:center; margin-top:40px; color:var(--texto-gris); font-size:0.8rem; padding: 20px;">
+    Unitec Ecatepec - Laboratorio de Sistemas Inteligentes - 2026
+</footer>
+
 </body>
 </html>
