@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard IoT | Unitec Ecatepec</title>
+    <title>Smart Home Unitec | Ecatepec</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="refresh" content="10">
 </head>
@@ -10,68 +10,45 @@
 
 <header>
     <div>
-        <h2 style="margin:0;">UNITEC</h2>
-        <small>Campus Ecatepec - Sistemas Inteligentes</small>
+        <h2 style="margin:0;">UNITEC SMART HOME</h2>
+        <small>Sistemas Inteligentes - Nodo Ecatepec</small>
     </div>
-    <div class="badge">SISTEMA ACTIVO</div>
+    <div class="badge">MONITOREO CLIMÁTICO ACTIVO</div>
 </header>
 
 <div class="dashboard-grid">
-    
-    <div class="card">
-        <h3>Agentes Inteligentes</h3>
-        <table style="width:100%; text-align:left; border-collapse:collapse;">
-            <thead>
-                <tr style="color:var(--naranja-unitec); border-bottom:1px solid #333;">
-                    <th style="padding:10px;">ID Dispositivo</th>
-                    <th style="padding:10px;">Hora de Conexion</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for nombre, info in agentes.items() %}
-                <tr style="border-bottom: 1px solid #222;">
-                    <td style="padding:10px;">{{ nombre }}</td>
-                    <td style="padding:10px; color:var(--success);">{{ info.hora }}</td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="2" style="padding:20px; text-align:center; color:var(--texto-gris);">
-                        Esperando reporte de agentes...
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
     {% for nombre, info in agentes.items() %}
     <div class="card">
-        <h3>Estado: {{ nombre }}</h3>
+        <h3>Variables Atmosféricas</h3>
+        <div style="font-size: 1.2rem; line-height: 2;">
+            <div>Temperatura: <span style="color:var(--naranja-unitec)">{{ info.temp }}°C</span></div>
+            <div>Humedad: <span style="color:var(--naranja-unitec)">{{ info.hum }}%</span></div>
+            <div>Viento: <span style="color:var(--naranja-unitec)">{{ info.viento }} km/h</span></div>
+        </div>
+        <p style="font-size: 0.7rem; color: var(--texto-gris);">Sincronizado: {{ info.hora }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Estado de Actuadores</h3>
         <div class="led-status">
             <div class="led-indicator">
-                <div class="circle {{ 'on' if info.led1 == 1 else '' }}"></div>
-                <small>Led 1</small>
+                <div class="circle {{ 'on' if info.act1 == 1 else '' }}"></div>
+                <small>Ventilador</small>
             </div>
             <div class="led-indicator">
-                <div class="circle {{ 'on' if info.led2 == 1 else '' }}"></div>
-                <small>Led 2</small>
+                <div class="circle {{ 'on' if info.act2 == 1 else '' }}"></div>
+                <small>Humidificador</small>
             </div>
             <div class="led-indicator">
-                <div class="circle {{ 'on' if info.led3 == 1 else '' }}"></div>
-                <small>Led 3</small>
+                <div class="circle {{ 'on' if info.act3 == 1 else '' }}"></div>
+                <small>Iluminación</small>
             </div>
         </div>
-        <p style="text-align:center; font-size:0.75rem; margin-top:20px; color:var(--texto-gris);">
-            Sincronizado con raymundoss.pythonanywhere.com
-        </p>
+        <div style="margin-top:15px; border-top: 1px solid #333; padding-top:10px; font-size:0.7rem;">
+            <strong>Reglas:</strong> Temp > 28°C (Vent) | Hum < 30% (Humid) | Viento > 20km/h (Luz)
+        </div>
     </div>
     {% endfor %}
-
 </div>
-
-<footer style="text-align:center; margin-top:40px; color:var(--texto-gris); font-size:0.8rem; padding: 20px;">
-    Unitec Ecatepec - Proyecto de Ingenieria - 2026
-</footer>
-
 </body>
 </html>
